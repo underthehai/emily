@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import exception.EmptyCommandException;
@@ -78,11 +81,16 @@ public class Emily {
                             break;
                         case "deadline":
                             response = "Adding a DEADLINE task: " + tokens[1] + "\n";
-                            store.addItem(new Deadline(tokens[1], tokens[2]));
+                            DateTimeFormatter deadline_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate deadline_time = LocalDate.parse(tokens[2], deadline_formatter);
+                            store.addItem(new Deadline(tokens[1], deadline_time));
                             break;
                         case "event":
                             response = "Adding an EVENT task: " + tokens[1] + "\n";
-                            store.addItem(new Event(tokens[1], tokens[2]));
+                            DateTimeFormatter event_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                            LocalDateTime event_time = LocalDateTime.parse(tokens[2], event_formatter);
+
+                            store.addItem(new Event(tokens[1], event_time));
                             break;
                         case "delete":
                             Task deleted_task = store.removeItem(tokens[1]);

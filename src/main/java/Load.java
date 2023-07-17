@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -35,17 +38,23 @@ public class Load {
                         arr.add(t);
                         break;
                     case "E":
-                        Event e = new Event(toks[2], toks[3]);
+                        DateTimeFormatter datetime_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime event_datetime = LocalDateTime.parse(toks[3], datetime_formatter);
+                        Event e = new Event(toks[2], event_datetime);
                         if (done) {
                             e.markDone();
                         }
                         arr.add(e);
+                        break;
                     case "D":
-                        Deadline d = new Deadline(toks[2], toks[3]);
+                        DateTimeFormatter deadline_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate deadline_date = LocalDate.parse(toks[3], deadline_formatter);
+                        Deadline d = new Deadline(toks[2], deadline_date);
                         if (done) {
                             d.markDone();
                         }
                         arr.add(d);
+                        break;
                 }
             }
             myReader.close();
