@@ -1,18 +1,14 @@
 import java.io.File;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.Scanner;
 
+import command.*;
+import data.TaskHandler;
 import exception.EmptyCommandException;
 import exception.EmptyListException;
 import exception.InvalidCommandException;
 import exception.TaskNotFoundException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
 
 public class Emily {
     private static String LINE = "================\n";
@@ -57,11 +53,13 @@ public class Emily {
             try {
 
                 String[] tokens = parser.parseInput(input);
-                String command = tokens[0];
+                String input_command = tokens[0];
+                Command command = new Command(store);
+
                 if (tokens.length == 1) {
-                    switch (command) {
+                    switch (input_command) {
                         case "list":
-                            response = store.listItems() + "\n";
+                            command = new ListCommand(store);
                             break;
                         case "exit":
                             terminator = false;
@@ -70,45 +68,15 @@ public class Emily {
                             throw new InvalidCommandException();
                     }
                 } else {
-                    switch (command) {
-                        case "done":
-                            Task d = store.markDoneTask(tokens[1]);
-                            response = "Mark Task: " + d.toString() + " as Done\n";
-                            break;
-                        case "todo":
-                            response = "Adding a TODO task: " + tokens[1] + "\n";
-                            store.addItem(new Todo(tokens[1]));
-                            break;
-                        case "deadline":
-                            response = "Adding a DEADLINE task: " + tokens[1] + "\n";
-                            DateTimeFormatter deadline_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                            LocalDate deadline_time = LocalDate.parse(tokens[2], deadline_formatter);
-                            store.addItem(new Deadline(tokens[1], deadline_time));
-                            break;
-                        case "event":
-                            response = "Adding an EVENT task: " + tokens[1] + "\n";
-                            DateTimeFormatter event_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                            LocalDateTime event_time = LocalDateTime.parse(tokens[2], event_formatter);
-
-                            store.addItem(new Event(tokens[1], event_time));
-                            break;
-                        case "delete":
-                            Task deleted_task = store.removeItem(tokens[1]);
-                            response = "Deleting Task: " + deleted_task.toString() + "\n";
-                            break;
-                        case "find":
-                            Task[] find_task = store.findTasks(tokens[1]);
-                            response = "Found Task(s):\n";
-
-                            for (Task t : find_task) {
-                                response += t.toString() + "\n";
-                            }
-                            break;
-
-                        default:
-                            throw new InvalidCommandException();
+                    if (input_command.equals("done") || input_command.equals("find")
+                            || input_command.equals("delete")) {
+                        command = new ManageTaskCommand(store, input_command, tokens[1]);
+                    } else {
+                        command = new AddTaskCommand(store, tokens);
                     }
+
                 }
+                response = command.execute();
 
                 System.out.println(LINE + response + LINE);
 

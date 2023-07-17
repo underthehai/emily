@@ -1,3 +1,5 @@
+package data;
+
 import java.util.ArrayList;
 
 import exception.EmptyListException;
@@ -9,7 +11,7 @@ public class TaskHandler {
     private Load loader = new Load();
     private ArrayList<Task> arr;
 
-    TaskHandler() {
+    public TaskHandler() {
         this.arr = loader.loadData();
     }
 
