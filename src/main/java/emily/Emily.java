@@ -1,14 +1,16 @@
+package emily;
+
 import java.io.File;
 import java.io.IOException;
 
 import java.util.Scanner;
 
-import command.*;
-import data.TaskHandler;
-import exception.EmptyCommandException;
-import exception.EmptyListException;
-import exception.InvalidCommandException;
-import exception.TaskNotFoundException;
+import emily.command.*;
+import emily.data.TaskHandler;
+import emily.exception.EmptyCommandException;
+import emily.exception.EmptyListException;
+import emily.exception.InvalidCommandException;
+import emily.exception.TaskNotFoundException;
 
 public class Emily {
     private static String LINE = "================\n";

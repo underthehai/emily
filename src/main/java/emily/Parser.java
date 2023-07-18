@@ -1,7 +1,9 @@
+package emily;
+
 import java.util.ArrayList;
 
-import exception.EmptyCommandException;
-import exception.InvalidCommandException;
+import emily.exception.EmptyCommandException;
+import emily.exception.InvalidCommandException;
 
 public class Parser {
     public Parser() {
@@ -9,7 +11,7 @@ public class Parser {
     }
 
     public String[] parseInput(String input) throws EmptyCommandException, InvalidCommandException {
-        if (input == null) {
+        if (input.isEmpty()) {
             throw new EmptyCommandException();
         }
 
@@ -19,7 +21,7 @@ public class Parser {
         String[] first_tok = input.split(" ", 2);
         String task_type;
 
-        task_type = first_tok[0];
+        task_type = first_tok[0].trim();
         tokens.add(task_type);
 
         if (first_tok.length == 1) {
@@ -32,8 +34,8 @@ public class Parser {
             if (task_type.equals("deadline")) {
                 second_tok = first_tok[1].split("/by", 2);
                 if (second_tok.length == 2) {
-                    tokens.add(second_tok[0]);
-                    tokens.add(second_tok[1]);
+                    tokens.add(second_tok[0].trim());
+                    tokens.add(second_tok[1].trim());
                 } else {
                     throw new InvalidCommandException();
                 }
@@ -41,13 +43,13 @@ public class Parser {
             } else if (task_type.equals("event")) {
                 second_tok = first_tok[1].split("/at", 2);
                 if (second_tok.length == 2) {
-                    tokens.add(second_tok[0]);
-                    tokens.add(second_tok[1]);
+                    tokens.add(second_tok[0].trim());
+                    tokens.add(second_tok[1].trim());
                 } else {
                     throw new InvalidCommandException();
                 }
             } else {
-                tokens.add(first_tok[1]);
+                tokens.add(first_tok[1].trim());
             }
 
         } else if (task_type.equals("delete") || task_type.equals("done") || task_type.equals("find")) {

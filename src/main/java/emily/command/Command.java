@@ -1,8 +1,8 @@
-package command;
+package emily.command;
 
-import data.TaskHandler;
-import exception.EmptyListException;
-import exception.TaskNotFoundException;
+import emily.data.TaskHandler;
+import emily.exception.EmptyListException;
+import emily.exception.TaskNotFoundException;
 
 public class Command {
     protected TaskHandler handler;

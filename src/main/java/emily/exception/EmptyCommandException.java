@@ -1,4 +1,4 @@
-package exception;
+package emily.exception;
 
 public class EmptyCommandException extends Exception {
 

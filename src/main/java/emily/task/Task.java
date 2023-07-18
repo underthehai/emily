@@ -1,4 +1,4 @@
-package task;
+package emily.task;
 
 public class Task {
     protected String description;

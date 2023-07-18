@@ -1,9 +1,9 @@
-package command;
+package emily.command;
 
-import data.TaskHandler;
-import exception.EmptyListException;
-import exception.TaskNotFoundException;
-import task.Task;
+import emily.data.TaskHandler;
+import emily.exception.EmptyListException;
+import emily.exception.TaskNotFoundException;
+import emily.task.Task;
 
 public class ManageTaskCommand extends Command {
     String id;
