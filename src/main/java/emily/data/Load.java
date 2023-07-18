@@ -2,6 +2,8 @@ package emily.data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +25,7 @@ public class Load {
         ArrayList<Task> arr = new ArrayList<>();
 
         try {
-            File myObj = new File("data/duke.txt");
+            File myObj = new File("resources/duke.txt");
             Scanner myReader = new Scanner(myObj);
 
             while (myReader.hasNextLine()) {
@@ -69,6 +71,34 @@ public class Load {
     }
 
     public void saveData(ArrayList<Task> arr) {
+        try {
+            FileWriter myWriter = new FileWriter("resources/duke.txt", false);
+            String description = "";
+            String status = "";
+            String line = "";
+            for (Task t : arr) {
+                description = t.getDescription();
+                status = t.isDone() ? "1" : "0";
+
+                if (t instanceof Todo) {
+                    line = "T|" + status + "|" + description;
+                } else if (t instanceof Deadline) {
+                    Deadline d = (Deadline) t;
+                    line = "D|" + status + "|" + description + "|" + d.getDate();
+
+                } else if (t instanceof Event) {
+                    Event e = (Event) t;
+                    line = "E|" + status + "|" + description + "|" + e.getDatetime();
+                }
+
+                myWriter.append(line + "\n");
+
+            }
+
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
 
     }
 

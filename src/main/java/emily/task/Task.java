@@ -13,6 +13,10 @@ public class Task {
         return this.description;
     }
 
+    public boolean isDone() {
+        return this.done;
+    }
+
     public void markDone() {
         this.done = true;
     }

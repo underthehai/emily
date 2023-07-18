@@ -12,7 +12,12 @@ public class TaskHandler {
     private ArrayList<Task> arr;
 
     public TaskHandler() {
+        this.arr = new ArrayList<>();
+    }
+
+    public void loadTasks() {
         this.arr = loader.loadData();
+
     }
 
     public void saveTasks() {

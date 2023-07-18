@@ -11,6 +11,10 @@ public class Event extends Task {
         this.date = date;
     }
 
+    public String getDatetime() {
+        return this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: "

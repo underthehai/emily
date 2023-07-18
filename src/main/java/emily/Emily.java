@@ -29,12 +29,15 @@ public class Emily {
 
     public static void initialise() {
         try {
-            File myObj = new File("data/duke.txt");
+            File myObj = new File("resources/duke.txt");
+            store = new TaskHandler();
+
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
                 System.out.println("Reading from duke.txt");
-                store = new TaskHandler();
+                store.loadTasks();
+
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -94,6 +97,7 @@ public class Emily {
             }
         }
         sc.close();
+        store.saveTasks();
 
     }
 
