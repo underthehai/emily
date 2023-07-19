@@ -4,14 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private LocalDateTime date;
 
     public Event(String desc, LocalDateTime date) {
         super(desc);
         this.date = date;
     }
 
-    public String getDatetime() {
+    public String getDatetimeString() {
         return this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 

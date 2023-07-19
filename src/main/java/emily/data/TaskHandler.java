@@ -1,6 +1,7 @@
 package emily.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import emily.exception.EmptyListException;
 import emily.exception.TaskNotFoundException;
@@ -106,5 +107,9 @@ public class TaskHandler {
         }
 
         throw new TaskNotFoundException(desc);
+    }
+
+    public void sortTaskArray() {
+       Collections.sort(this.arr);
     }
 }

@@ -1,6 +1,5 @@
 package emily.command;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,8 +27,8 @@ public class AddTaskCommand extends Command {
                 return "Adding a TODO task: " + todo.toString() + "\n";
 
             case "deadline":
-                DateTimeFormatter deadline_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate deadline_time = LocalDate.parse(info[2], deadline_formatter);
+                DateTimeFormatter deadline_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime deadline_time = LocalDateTime.parse((info[2] + " 00:00"), deadline_formatter);
 
                 Deadline deadline = new Deadline(info[1], deadline_time);
                 handler.addItem(deadline);

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -52,8 +51,8 @@ public class Load {
                         arr.add(e);
                         break;
                     case "D":
-                        DateTimeFormatter deadline_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        LocalDate deadline_date = LocalDate.parse(toks[3], deadline_formatter);
+                        DateTimeFormatter deadline_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime deadline_date = LocalDateTime.parse(toks[3], deadline_formatter);
                         Deadline d = new Deadline(toks[2], deadline_date);
                         if (done) {
                             d.markDone();
@@ -84,11 +83,11 @@ public class Load {
                     line = "T|" + status + "|" + description;
                 } else if (t instanceof Deadline) {
                     Deadline d = (Deadline) t;
-                    line = "D|" + status + "|" + description + "|" + d.getDate();
+                    line = "D|" + status + "|" + description + "|" + d.getDateString();
 
                 } else if (t instanceof Event) {
                     Event e = (Event) t;
-                    line = "E|" + status + "|" + description + "|" + e.getDatetime();
+                    line = "E|" + status + "|" + description + "|" + e.getDatetimeString();
                 }
 
                 myWriter.append(line + "\n");

@@ -62,15 +62,16 @@ public class Emily {
                 Command command = new Command(store);
 
                 if (tokens.length == 1) {
-                    switch (input_command) {
-                        case "list":
-                            command = new ListCommand(store);
-                            break;
-                        case "exit":
-                            terminator = false;
-                            break;
-                        default:
-                            throw new InvalidCommandException();
+                    if(input_command.equals("list") || input_command.equals("sort")) {
+                        boolean sorted = input_command.equals("sort");
+                        command = new ListCommand(store, sorted);
+                    } 
+                    else if (input_command.equals("exit")) {
+                        terminator = false;
+                        break;
+                    }
+                    else {
+                        throw new InvalidCommandException();
                     }
                 } else {
                     if (input_command.equals("done") || input_command.equals("find")

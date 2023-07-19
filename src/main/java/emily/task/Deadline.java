@@ -1,18 +1,17 @@
 package emily.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private LocalDate date;
 
-    public Deadline(String desc, LocalDate date) {
+    public Deadline(String desc, LocalDateTime date) {
         super(desc);
         this.date = date;
     }
 
-    public String getDate() {
-        return this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    public String getDateString() {
+        return this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     @Override

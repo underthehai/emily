@@ -25,7 +25,7 @@ public class Parser {
         tokens.add(task_type);
 
         if (first_tok.length == 1) {
-            if (!(task_type.equals("exit") || task_type.equals("list"))) {
+            if (!(task_type.equals("exit") || task_type.equals("list") || task_type.equals("sort"))) {
                 throw new InvalidCommandException();
             }
         } else if (task_type.equals("todo") || task_type.equals("deadline") || task_type.equals("event")) {
